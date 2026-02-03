@@ -1,68 +1,177 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Stefan's Tic Tac Toe 🎮
 
-## Available Scripts
+An enhanced React-based Tic Tac Toe game with multiple game modes and AI opponents.
+
+## 🚀 Features
+
+### Game Modes
+- **👥 Human vs Human**: Classic two-player mode where two humans take turns
+- **👤 Human vs Bot**: Play against an intelligent AI opponent
+- **🤖 Bot vs Bot**: Watch two AI opponents battle it out automatically
+
+### Game Features
+- **Smart AI**: Uses minimax algorithm with alpha-beta pruning for optimal moves
+- **Move History**: Navigate through game history and jump to any previous move
+- **Win Detection**: Highlights winning squares and displays the winner
+- **Draw Detection**: Automatically detects when the game ends in a draw
+- **Move Sorting**: Sort the move history in ascending or descending order
+- **Responsive Design**: Works on desktop and mobile devices
+
+## 🛠 Technologies Used
+
+- **React 16.13.1**: Component-based UI framework
+- **JavaScript ES6+**: Modern JavaScript features
+- **CSS3**: Responsive styling with flexbox and grid
+- **pnpm**: Fast, disk space efficient package manager
+
+## 📦 Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/your-username/Stefans-Tic-Tac-Toe.git
+cd Stefans-Tic-Tac-Toe
+```
+
+2. Install dependencies:
+```bash
+pnpm install
+```
+
+## 🏃‍♂️ Available Scripts
 
 In the project directory, you can run:
 
-### `yarn start`
+### `pnpm start`
 
-Runs the app in the development mode.<br />
+Runs the app in development mode.  
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
+The page will reload if you make edits.  
 You will also see any lint errors in the console.
 
-### `yarn test`
+### `pnpm test`
 
-Launches the test runner in the interactive watch mode.<br />
+Launches the test runner in interactive watch mode.  
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+### `pnpm run build`
 
-Builds the app for production to the `build` folder.<br />
+Builds the app for production to the `build` folder.  
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br />
+The build is minified and the filenames include the hashes.  
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Note**: If you encounter OpenSSL errors during build with newer Node.js versions, use:
+```bash
+export NODE_OPTIONS=--openssl-legacy-provider
+pnpm run build
+```
 
-### `yarn eject`
+### `pnpm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## 🎯 How to Play
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+1. **Choose Game Mode**: Select from Human vs Human, Human vs Bot, or Bot vs Bot
+2. **Make Your Move**: Click on any empty square to place your mark (X or O)
+3. **Win Condition**: Get three of your marks in a row (horizontally, vertically, or diagonally)
+4. **Game Controls**: Use the buttons to start a new game, return to menu, or navigate move history
 
-## Learn More
+### Game Mode Details
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### Human vs Human 👥
+- Player 1 plays as X (goes first)
+- Player 2 plays as O (goes second)
+- Take turns clicking on empty squares
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### Human vs Bot 👤
+- You play as X (go first)
+- Bot plays as O (goes second)
+- Bot will automatically make its move after yours
+- Bot uses advanced AI to provide a challenging experience
 
-### Code Splitting
+#### Bot vs Bot 🤖
+- Watch two AI opponents play against each other
+- Bot 1 (X) vs Bot 2 (O)
+- Moves are made automatically with a small delay for visibility
+- Great for observing optimal gameplay strategies
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+## 🧠 AI Implementation
 
-### Analyzing the Bundle Size
+The AI uses the **Minimax algorithm** with **Alpha-Beta pruning** for efficient decision making:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+- **Minimax**: Evaluates all possible game states to find the optimal move
+- **Alpha-Beta Pruning**: Optimizes the search by eliminating branches that won't affect the final decision
+- **Difficulty**: The AI plays optimally, making it challenging but fair
 
-### Making a Progressive Web App
+## 📱 Responsive Design
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+The game is fully responsive and works on:
+- Desktop computers
+- Tablets
+- Mobile phones
+- Various screen sizes and orientations
 
-### Advanced Configuration
+## 🔧 Project Structure
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+```
+src/
+├── Game.js          # Main game component with AI logic
+├── Board.js         # Game board component
+├── Square.js        # Individual square component
+├── index.js         # App entry point
+└── index.css        # Styling and responsive design
+```
 
-### Deployment
+## 🚀 Deployment
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+This project can be deployed to various platforms:
 
-### `yarn build` fails to minify
+- **Netlify**: Drag and drop the `build` folder
+- **Vercel**: Connect your GitHub repository
+- **GitHub Pages**: Use the `gh-pages` package
+- **Firebase Hosting**: Use Firebase CLI
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## 📈 Future Enhancements
+
+Potential improvements for future versions:
+- [ ] Difficulty levels for AI (Easy, Medium, Hard)
+- [ ] Tournament mode
+- [ ] Online multiplayer
+- [ ] Game statistics and scoring
+- [ ] Custom themes and colors
+- [ ] Sound effects and animations
+- [ ] Larger board sizes (4x4, 5x5)
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## 🎨 Screenshots
+
+![Game Mode Selection](screenshots/game-modes.png)  
+*Choose between different game modes*
+
+![Human vs Bot](screenshots/human-vs-bot.png)  
+*Play against an intelligent AI opponent*
+
+![Bot vs Bot](screenshots/bot-vs-bot.png)  
+*Watch AI opponents battle each other*
+
+---
+
+**Created by Stefan** - A modern take on the classic Tic Tac Toe game with AI opponents and multiple game modes.
