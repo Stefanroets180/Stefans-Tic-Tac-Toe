@@ -1,21 +1,49 @@
 body {
-    font-family:
-        -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
-    color: #090809;
     margin: 0;
-    padding: 0;
-    background: #5942b3;
-    overflow-x: hidden;
-    min-height: 100vh;
+    font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+        "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+    font-family:
+        source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 * {
     box-sizing: border-box;
 }
 
-ol,
-ul {
-    padding-left: 30px;
+.App {
+    text-align: center;
+}
+
+/* Game board styles */
+.square {
+    background: #fff;
+    border: 1px solid #999;
+    float: left;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 34px;
+    height: 34px;
+    margin-right: -1px;
+    margin-top: -1px;
+    padding: 0;
+    text-align: center;
+    width: 34px;
+}
+
+.square:focus {
+    outline: none;
+}
+
+.square.winner {
+    background-color: #ff6b6b;
+    color: white;
 }
 
 .board-row:after {
@@ -25,356 +53,86 @@ ul {
 }
 
 .status {
-    margin-bottom: 15px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #f5f0f0;
-    padding: 10px;
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    text-align: center;
+    margin-bottom: 10px;
 }
 
-.square {
-    background: #43781b;
-    border: 1px solid #eae6ec;
-    float: left;
-    font-size: clamp(24px, 4vw, 45px);
-    color: #f5f0f0;
-    font-weight: bold;
-    line-height: 1.2;
-    height: clamp(60px, 10vw, 108px);
-    width: clamp(60px, 10vw, 108px);
-    margin-right: -1px;
-    margin-top: -1px;
-    padding: 0;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.square:hover {
-    background: #5a9e23;
-}
-
-.square--red {
-    background: red;
-}
-
-.square:focus {
-    outline: 2px solid #fff;
-    outline-offset: 2px;
-}
-
-/* Main game container */
 .game {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    min-height: 100vh;
-    padding: 10vh 20px 20px 20px;
-    max-width: 100vw;
-}
-
-/* Game mode selector */
-.game-mode-selector {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 80vh;
-    text-align: center;
-    width: 100%;
-    max-width: 600px;
-}
-
-.game-mode-selector h2 {
-    color: #f5f0f0;
-    margin-bottom: 30px;
-    font-size: clamp(1.5rem, 4vw, 2rem);
-}
-
-.game-mode-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-    width: 100%;
-}
-
-.mode-button {
-    background: linear-gradient(135deg, #43781b, #5a9e23);
-    border: none;
-    color: #f5f0f0;
-    padding: 15px 30px;
-    font-size: clamp(1rem, 3vw, 1.5rem);
-    cursor: pointer;
-    border-radius: 10px;
-    width: 100%;
-    max-width: 300px;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.mode-button:hover {
-    background: linear-gradient(135deg, #5a9e23, #6bb82a);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-}
-
-.mode-button:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-/* Game layout */
-.game-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-    color: #f5f0f0;
-    width: 100%;
-    max-width: 800px;
-}
-
-.game-header h2 {
-    margin: 0;
-    font-size: clamp(1.2rem, 3vw, 1.5rem);
-    text-align: center;
-}
-
-/* Game content container */
-.game-content {
-    display: flex;
     flex-direction: row;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 40px;
-    width: 100%;
-    max-width: 1000px;
-    flex-wrap: wrap;
 }
 
-/* Board container */
-.game-board {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-width: fit-content;
-}
-
-/* Game info sidebar */
 .game-info {
-    display: flex;
-    flex-direction: column;
-    min-width: 250px;
-    max-width: 300px;
-    flex-shrink: 0;
+    margin-left: 20px;
 }
 
 /* Button styles */
-.button {
-    background-color: #43781b;
+button {
+    background: #0084ff;
     border: none;
-    color: #f5f0f0;
-    padding: 8px 12px;
-    text-align: center;
-    text-decoration: none;
-    font-size: clamp(12px, 2vw, 14px);
+    border-radius: 3px;
+    color: white;
     cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.2s;
-    white-space: nowrap;
-}
-
-.button:hover {
-    background-color: #5a9e23;
-}
-
-.button--purp {
-    background-color: #8c42ac;
-    color: #f5f0f0;
+    font-size: 15px;
     font-weight: bold;
+    outline: none;
+    padding: 0.75rem 1rem;
+    margin: 0 0.25rem;
 }
 
-/* Game controls */
-.game-controls {
+button:hover {
+    background: #0056b3;
+}
+
+button:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+}
+
+/* Utility classes */
+.text-center {
+    text-align: center;
+}
+
+.mb-2 {
+    margin-bottom: 0.5rem;
+}
+
+.mb-4 {
+    margin-bottom: 1rem;
+}
+
+.p-4 {
+    padding: 1rem;
+}
+
+.flex {
     display: flex;
-    justify-content: space-between;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.items-center {
     align-items: center;
-    margin-bottom: 20px;
-    gap: 10px;
-    flex-wrap: wrap;
 }
 
-.game-controls .button:first-child {
-    /* Back to Menu button */
+.justify-center {
+    justify-content: center;
 }
 
-.game-controls-right {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    flex-wrap: wrap;
+.min-h-screen {
+    min-height: 100vh;
 }
 
-.game-controls-right .button {
-    flex: 1;
-    min-width: 100px;
+.bg-indigo-700 {
+    background-color: #4338ca;
 }
 
-/* Move history */
-ol {
-    max-height: 300px;
-    overflow-y: auto;
-    padding-right: 10px;
+.text-white {
+    color: white;
 }
 
-ol li {
-    margin-bottom: 5px;
-}
-
-/* Responsive breakpoints */
-@media (max-width: 768px) {
-    .game {
-        padding: 5vh 10px 20px 10px;
-    }
-
-    .game-content {
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
-
-    .game-info {
-        width: 100%;
-        max-width: 400px;
-        order: 2;
-    }
-
-    .game-board {
-        order: 1;
-    }
-
-    .game-header {
-        flex-direction: column;
-        gap: 10px;
-        text-align: center;
-        margin-bottom: 15px;
-    }
-
-    .game-controls {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 15px;
-    }
-
-    .game-controls-right {
-        flex-direction: row;
-        justify-content: space-between;
-    }
-
-    .game-controls .button,
-    .game-controls-right .button {
-        width: 100%;
-        margin: 0;
-    }
-
-    .game-controls-right .button {
-        width: calc(50% - 5px);
-    }
-
-    .mode-button {
-        padding: 12px 20px;
-        font-size: 1.1rem;
-    }
-
-    ol {
-        max-height: 200px;
-    }
-}
-
-@media (max-width: 480px) {
-    .game {
-        padding: 5vh 5px 15px 5px;
-    }
-
-    .square {
-        font-size: 20px;
-        height: 50px;
-        width: 50px;
-    }
-
-    .game-controls-right {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .game-controls-right .button {
-        width: 100%;
-    }
-
-    .mode-button {
-        padding: 10px 15px;
-        font-size: 1rem;
-    }
-
-    ol {
-        font-size: 12px;
-        max-height: 150px;
-    }
-
-    .status {
-        font-size: 1rem;
-        padding: 8px;
-    }
-}
-
-/* Landscape orientation on mobile */
-@media (max-height: 600px) and (orientation: landscape) {
-    .game {
-        padding: 2vh 10px 10px 10px;
-    }
-
-    .game-content {
-        flex-direction: row;
-        align-items: flex-start;
-        justify-content: center;
-        gap: 20px;
-    }
-
-    .game-info {
-        order: 2;
-        max-width: 250px;
-    }
-
-    .game-board {
-        order: 1;
-    }
-
-    ol {
-        max-height: 150px;
-    }
-
-    .square {
-        height: 40px;
-        width: 40px;
-        font-size: 18px;
-    }
-}
-
-/* Ultra-wide screens */
-@media (min-width: 1200px) {
-    .game-content {
-        gap: 60px;
-    }
-
-    .game-info {
-        min-width: 300px;
-    }
+.gap-4 {
+    gap: 1rem;
 }

@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stefan's Tic Tac Toe</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .menu-screen {
+            text-align: center;
+            color: white;
+        }
+
+        .menu-screen h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .menu-screen h2 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .menu-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #10b981, #059669);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #059669, #047857);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .game-screen {
+            color: white;
+            text-align: center;
+        }
+
+        .game-header {
+            margin-bottom: 2rem;
+        }
+
+        .game-header h1 {
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .game-content {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 80px);
+            gap: 4px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 4px;
+            border-radius: 12px;
+        }
+
+        .square {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 8px;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .square:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: scale(1.05);
+        }
+
+        .square.winner {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .square:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .game-info {
+            min-width: 250px;
+            max-width: 300px;
+        }
+
+        .status {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            justify-content: center;
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        .history {
+            text-align: left;
+        }
+
+        .history h3 {
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .history-list {
+            max-height: 300px;
+            overflow-y: auto;
+            list-style: none;
+        }
+
+        .history-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        .history-btn {
+            width: 100%;
+            text-align: left;
+            padding: 0.5rem;
+            font-size: 0.85rem;
+            border-radius: 6px;
+        }
+
+        .history-btn.active {
+            background: #7c3aed;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+                margin: 1rem;
+            }
+
+            .game-content {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .board {
+                grid-template-columns: repeat(3, 60px);
+            }
+
+            .square {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Menu Screen -->
+        <div id="menuScreen" class="menu-screen">
+            <h1>🎮 Tic Tac Toe</h1>
+            <h2>Choose Game Mode</h2>
+            <div class="menu-buttons">
+                <button class="btn btn-primary" onclick="startGame('human_vs_human')">
+                    👥 Human vs Human
+                </button>
+                <button class="btn btn-primary" onclick="startGame('human_vs_bot')">
+                    🤖 Human vs Bot
+                </button>
+                <button class="btn btn-primary" onclick="startGame('bot_vs_bot')">
+                    🤖 Bot vs Bot
+                </button>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="gameScreen" class="game-screen hidden">
+            <div class="game-header">
+                <h1 id="gameTitle">
+                    <span id="gameModeIcon">👥</span>
+                    <span id="gameModeText">Human vs Human</span>
+                </h1>
+            </div>
+
+            <div class="game-content">
+                <div class="board" id="board">
+                    <!-- Squares will be generated by JavaScript -->
+                </div>
+
+                <div class="game-info">
+                    <div class="status" id="status">Next player: X</div>
+
+                    <div class="controls">
+                        <button class="btn btn-secondary btn-small" onclick="backToMenu()">
+                            🏠 Menu
+                        </button>
+                        <button class="btn btn-secondary btn-small" onclick="newGame()">
+                            🔄 New Game
+                        </button>
+                        <button class="btn btn-secondary btn-small" onclick="sortMoves()">
+                            📈 Sort
+                        </button>
+                    </div>
+
+                    <div class="history">
+                        <h3>Move History</h3>
+                        <ol class="history-list" id="historyList">
+                            <!-- History will be generated by JavaScript -->
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Game state
+        let gameState = {
+            history: [{ squares: Array(9).fill(null), stepNumber: 0 }],
+            currentStepNumber: 0,
+            xIsNext: true,
+            gameMode: 'human_vs_human',
+            gameStarted: false,
+            botThinking: false,
+            isReversed: false
+        };
+
+        // Game logic
+        function calculateWinner(squares) {
+            const lines = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
+                [0, 3, 6], [1, 4, 7], [2, 5, 8], // columns
+                [0, 4, 8], [2, 4, 6] // diagonals
+            ];
+
+            for (let i = 0; i < lines.length; i++) {
+                const [a, b, c] = lines[i];
+                if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+                    return { winner: squares[a], winnerRow: lines[i] };
+                }
+            }
+            return { winner: null, winnerRow: null };
+        }
+
+        function minimax(squares, depth, isMaximizing, alpha = -Infinity, beta = Infinity) {
+            const { winner } = calculateWinner(squares);
+
+            if (winner === 'O') return 10 - depth; // Bot wins
+            if (winner === 'X') return depth - 10; // Human wins
+            if (squares.every(square => square !== null)) return 0; // Draw
+
+            if (isMaximizing) {
+                let maxEval = -Infinity;
+                for (let i = 0; i < squares.length; i++) {
+                    if (squares[i] === null) {
+                        squares[i] = 'O';
+                        const evaluation = minimax(squares, depth + 1, false, alpha, beta);
+                        squares[i] = null;
+                        maxEval = Math.max(maxEval, evaluation);
+                        alpha = Math.max(alpha, evaluation);
+                        if (beta <= alpha) break;
+                    }
+                }
+                return maxEval;
+            } else {
+                let minEval = Infinity;
+                for (let i = 0; i < squares.length; i++) {
+                    if (squares[i] === null) {
+                        squares[i] = 'X';
+                        const evaluation = minimax(squares, depth + 1, true, alpha, beta);
+                        squares[i] = null;
+                        minEval = Math.min(minEval, evaluation);
+                        beta = Math.min(beta, evaluation);
+                        if (beta <= alpha) break;
+                    }
+                }
+                return minEval;
+            }
+        }
+
+        function getBestMove(squares, isBot1 = true) {
+            const botSymbol = isBot1 ? 'O' : 'X';
+            let bestMove = -1;
+            let bestValue = isBot1 ? -Infinity : Infinity;
+
+            for (let i = 0; i < squares.length; i++) {
+                if (squares[i] === null) {
+                    squares[i] = botSymbol;
+                    const moveValue = minimax([...squares], 0, !isBot1);
+                    squares[i] = null;
+
+                    if ((isBot1 && moveValue > bestValue) || (!isBot1 && moveValue < bestValue)) {
+                        bestMove = i;
+                        bestValue = moveValue;
+                    }
+                }
+            }
+
+            return bestMove;
+        }
+
+        function getPlayerName(isX, gameMode) {
+            if (gameMode === 'human_vs_human') {
+                return isX ? 'Player 1 (X)' : 'Player 2 (O)';
+            } else if (gameMode === 'human_vs_bot') {
+                return isX ? 'You (X)' : 'Bot (O)';
+            } else {
+                return isX ? 'Bot 1 (X)' : 'Bot 2 (O)';
+            }
+        }
+
+        // UI functions
+        function startGame(mode) {
+            gameState.gameMode = mode;
+            gameState.gameStarted = true;
+
+            // Update UI
+            document.getElementById('menuScreen').classList.add('hidden');
+            document.getElementById('gameScreen').classList.remove('hidden');
+
+            // Set game mode display
+            const modeConfig = {
+                'human_vs_human': { icon: '👥', text: 'Human vs Human' },
+                'human_vs_bot': { icon: '🤖', text: 'Human vs Bot' },
+                'bot_vs_bot': { icon: '🤖', text: 'Bot vs Bot' }
+            };
+
+            document.getElementById('gameModeIcon').textContent = modeConfig[mode].icon;
+            document.getElementById('gameModeText').textContent = modeConfig[mode].text;
+
+            renderBoard();
+            renderHistory();
+            updateStatus();
+
+            // Start bot vs bot if needed
+            if (mode === 'bot_vs_bot') {
+                setTimeout(makeBotMove, 1000);
+            }
+        }
+
+        function backToMenu() {
+            gameState = {
+                history: [{ squares: Array(9).fill(null), stepNumber: 0 }],
+                currentStepNumber: 0,
+                xIsNext: true,
+                gameMode: 'human_vs_human',
+                gameStarted: false,
+                botThinking: false,
+                isReversed: false
+            };
+
+            document.getElementById('gameScreen').classList.add('hidden');
+            document.getElementById('menuScreen').classList.remove('hidden');
+        }
+
+        function newGame() {
+            const currentMode = gameState.gameMode;
+            gameState.history = [{ squares: Array(9).fill(null), stepNumber: 0 }];
+            gameState.currentStepNumber = 0;
+            gameState.xIsNext = true;
+            gameState.botThinking = false;
+
+            renderBoard();
+            renderHistory();
+            updateStatus();
+
+            if (currentMode === 'bot_vs_bot') {
+                setTimeout(makeBotMove, 1000);
+            }
+        }
+
+        function sortMoves() {
+            gameState.isReversed = !gameState.isReversed;
+            renderHistory();
+        }
+
+        function renderBoard() {
+            const board = document.getElementById('board');
+            const current = gameState.history[gameState.currentStepNumber];
+            const { winnerRow } = calculateWinner(current.squares);
+
+            board.innerHTML = '';
+
+            for (let i = 0; i < 9; i++) {
+                const square = document.createElement('button');
+                square.className = 'square';
+                square.textContent = current.squares[i] || '';
+                square.onclick = () => handleClick(i);
+
+                if (winnerRow && winnerRow.includes(i)) {
+                    square.classList.add('winner');
+                }
+
+                if (gameState.botThinking || (gameState.gameMode === 'bot_vs_bot')) {
+                    square.disabled = true;
+                }
+
+                board.appendChild(square);
+            }
+        }
+
+        function renderHistory() {
+            const historyList = document.getElementById('historyList');
+            const history = gameState.isReversed ? [...gameState.history].reverse() : gameState.history;
+
+            historyList.innerHTML = '';
+
+            history.forEach((step, index) => {
+                const actualIndex = gameState.isReversed ? gameState.history.length - 1 - index : index;
+                const li = document.createElement('li');
+                const button = document.createElement('button');
+
+                const desc = step.stepNumber ? `Go to move #${step.stepNumber}` : 'Go to game start';
+                button.textContent = desc;
+                button.className = `btn btn-secondary history-btn ${actualIndex === gameState.currentStepNumber ? 'active' : ''}`;
+                button.onclick = () => jumpTo(actualIndex);
+
+                li.appendChild(button);
+                historyList.appendChild(li);
+            });
+        }
+
+        function updateStatus() {
+            const current = gameState.history[gameState.currentStepNumber];
+            const { winner } = calculateWinner(current.squares);
+            let status;
+
+            if (winner) {
+                const winnerName = getPlayerName(winner === 'X', gameState.gameMode);
+                status = `🏆 Winner: ${winnerName}`;
+            } else if (current.squares.every(square => square !== null)) {
+                status = '🤝 Draw! No one won.';
+            } else if (gameState.botThinking) {
+                const thinkingPlayer = getPlayerName(!gameState.xIsNext, gameState.gameMode);
+                status = `🤔 ${thinkingPlayer} is thinking...`;
+            } else {
+                const nextPlayer = getPlayerName(gameState.xIsNext, gameState.gameMode);
+                status = `▶️ Next player: ${nextPlayer}`;
+            }
+
+            document.getElementById('status').textContent = status;
+        }
+
+        function handleClick(i) {
+            if (gameState.botThinking) return;
+
+            if (gameState.gameMode === 'human_vs_bot' && !gameState.xIsNext) return;
+            if (gameState.gameMode === 'bot_vs_bot') return;
+
+            const hist = gameState.history.slice(0, gameState.currentStepNumber + 1);
+            const current = hist[hist.length - 1];
+            const squares = [...current.squares];
+
+            if (calculateWinner(squares).winner || squares[i]) return;
+
+            squares[i] = gameState.xIsNext ? 'X' : 'O';
+
+            gameState.history = hist.concat([{
+                squares,
+                stepNumber: hist.length
+            }]);
+            gameState.currentStepNumber = hist.length;
+            gameState.xIsNext = !gameState.xIsNext;
+
+            renderBoard();
+            renderHistory();
+            updateStatus();
+
+            // Bot move for human vs bot
+            if (gameState.gameMode === 'human_vs_bot' && !gameState.xIsNext) {
+                setTimeout(makeBotMove, 800);
+            }
+        }
+
+        function makeBotMove() {
+            if (gameState.botThinking) return;
+
+            const current = gameState.history[gameState.currentStepNumber];
+            const { winner } = calculateWinner(current.squares);
+
+            if (winner || current.squares.every(square => square !== null)) return;
+
+            gameState.botThinking = true;
+            updateStatus();
+
+            setTimeout(() => {
+                const hist = gameState.history.slice(0, gameState.currentStepNumber + 1);
+                const curr = hist[hist.length - 1];
+                const squares = [...curr.squares];
+
+                let bestMove;
+                if (gameState.gameMode === 'bot_vs_bot') {
+                    bestMove = getBestMove(squares, gameState.xIsNext);
+                } else {
+                    bestMove = getBestMove(squares, false);
+                }
+
+                if (bestMove !== -1 && squares[bestMove] === null) {
+                    squares[bestMove] = gameState.xIsNext ? 'X' : 'O';
+
+                    gameState.history = hist.concat([{
+                        squares,
+                        stepNumber: hist.length
+                    }]);
+                    gameState.currentStepNumber = hist.length;
+                    gameState.xIsNext = !gameState.xIsNext;
+                }
+
+                gameState.botThinking = false;
+                renderBoard();
+                renderHistory();
+                updateStatus();
+
+                // Continue bot vs bot
+                if (gameState.gameMode === 'bot_vs_bot') {
+                    const newCurrent = gameState.history[gameState.currentStepNumber];
+                    const { winner: newWinner } = calculateWinner(newCurrent.squares);
+                    if (!newWinner && !newCurrent.squares.every(square => square !== null)) {
+                        setTimeout(makeBotMove, 1000);
+                    }
+                }
+            }, 800);
+        }
+
+        function jumpTo(step) {
+            gameState.currentStepNumber = step;
+            gameState.xIsNext = step % 2 === 0;
+            gameState.botThinking = false;
+
+            renderBoard();
+            renderHistory();
+            updateStatus();
+        }
+
+        // Initialize
+        renderBoard();
+        renderHistory();
+        updateStatus();
+    </script>
+</body>
+</html>

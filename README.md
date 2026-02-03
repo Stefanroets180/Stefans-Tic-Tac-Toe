@@ -1,177 +1,154 @@
-# Stefan's Tic Tac Toe 🎮
+# Stefan's Tic Tac Toe
 
-An enhanced React-based Tic Tac Toe game with multiple game modes and AI opponents.
+A modern, feature-rich Tic Tac Toe game built with React, featuring multiple game modes including Human vs Human, Human vs Bot, and Bot vs Bot with an intelligent AI opponent using the minimax algorithm.
 
-## 🚀 Features
+## 🎮 Features
 
-### Game Modes
-- **👥 Human vs Human**: Classic two-player mode where two humans take turns
-- **👤 Human vs Bot**: Play against an intelligent AI opponent
-- **🤖 Bot vs Bot**: Watch two AI opponents battle it out automatically
-
-### Game Features
-- **Smart AI**: Uses minimax algorithm with alpha-beta pruning for optimal moves
-- **Move History**: Navigate through game history and jump to any previous move
-- **Win Detection**: Highlights winning squares and displays the winner
-- **Draw Detection**: Automatically detects when the game ends in a draw
-- **Move Sorting**: Sort the move history in ascending or descending order
+- **Multiple Game Modes**: Play against humans or AI opponents
+- **Smart AI**: Bot uses minimax algorithm with alpha-beta pruning
+- **Move History**: Track and replay any point in the game
 - **Responsive Design**: Works on desktop and mobile devices
+- **Modern UI**: Beautiful gradient backgrounds with smooth animations
+- **Bot vs Bot Mode**: Watch two AI opponents battle it out
 
-## 🛠 Technologies Used
+## 🚀 Quick Start (Standalone Version)
 
-- **React 16.13.1**: Component-based UI framework
-- **JavaScript ES6+**: Modern JavaScript features
-- **CSS3**: Responsive styling with flexbox and grid
-- **pnpm**: Fast, disk space efficient package manager
+The easiest way to play the game is to simply open `index-standalone.html` in your web browser:
 
-## 📦 Installation
+1. Double-click `index-standalone.html` or open it in any modern web browser
+2. Choose your game mode and start playing!
 
-1. Clone the repository:
+This version requires no installation or build tools - it works immediately.
+
+## 💻 React Development Version
+
+For developers who want to modify or enhance the game:
+
+### Prerequisites
+
+- Node.js (version 18 or higher)
+- npm or pnpm
+
+### Installation
+
+1. Clone or download this repository
+2. Navigate to the project directory
+3. Install dependencies:
+   ```bash
+   npm install
+   # or if you prefer pnpm
+   pnpm install
+   ```
+
+### Running the Development Server
+
 ```bash
-git clone https://github.com/your-username/Stefans-Tic-Tac-Toe.git
-cd Stefans-Tic-Tac-Toe
+npm start
 ```
 
-2. Install dependencies:
+This will start the development server on `http://localhost:3000`.
+
+### Building for Production
+
 ```bash
-pnpm install
+npm run build
 ```
 
-## 🏃‍♂️ Available Scripts
+This creates an optimized production build in the `build/` directory.
 
-In the project directory, you can run:
+### Deploying to GitHub Pages
 
-### `pnpm start`
-
-Runs the app in development mode.  
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.  
-You will also see any lint errors in the console.
-
-### `pnpm test`
-
-Launches the test runner in interactive watch mode.  
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `pnpm run build`
-
-Builds the app for production to the `build` folder.  
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.  
-Your app is ready to be deployed!
-
-**Note**: If you encounter OpenSSL errors during build with newer Node.js versions, use:
 ```bash
-export NODE_OPTIONS=--openssl-legacy-provider
-pnpm run build
+npm run deploy
 ```
 
-### `pnpm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+This will build and deploy the app to GitHub Pages.
 
 ## 🎯 How to Play
 
-1. **Choose Game Mode**: Select from Human vs Human, Human vs Bot, or Bot vs Bot
+1. **Choose Game Mode**:
+   - 👥 **Human vs Human**: Two players take turns
+   - 🤖 **Human vs Bot**: Play against the AI
+   - 🤖 **Bot vs Bot**: Watch AI vs AI battles
+
 2. **Make Your Move**: Click on any empty square to place your mark (X or O)
-3. **Win Condition**: Get three of your marks in a row (horizontally, vertically, or diagonally)
-4. **Game Controls**: Use the buttons to start a new game, return to menu, or navigate move history
 
-### Game Mode Details
+3. **Win Conditions**: Get three in a row horizontally, vertically, or diagonally
 
-#### Human vs Human 👥
-- Player 1 plays as X (goes first)
-- Player 2 plays as O (goes second)
-- Take turns clicking on empty squares
+4. **Game Controls**:
+   - 🏠 **Menu**: Return to game mode selection
+   - 🔄 **New Game**: Start a fresh game with the same mode
+   - 📈 **Sort**: Reverse the order of move history
 
-#### Human vs Bot 👤
-- You play as X (go first)
-- Bot plays as O (goes second)
-- Bot will automatically make its move after yours
-- Bot uses advanced AI to provide a challenging experience
+## 🧠 AI Intelligence
 
-#### Bot vs Bot 🤖
-- Watch two AI opponents play against each other
-- Bot 1 (X) vs Bot 2 (O)
-- Moves are made automatically with a small delay for visibility
-- Great for observing optimal gameplay strategies
+The bot uses a sophisticated minimax algorithm with alpha-beta pruning to make optimal moves. This means the AI will:
+- Always block you from winning when possible
+- Take winning moves when available
+- Play optimally to force a draw when it can't win
 
-## 🧠 AI Implementation
+## 🔧 Technical Details
 
-The AI uses the **Minimax algorithm** with **Alpha-Beta pruning** for efficient decision making:
-
-- **Minimax**: Evaluates all possible game states to find the optimal move
-- **Alpha-Beta Pruning**: Optimizes the search by eliminating branches that won't affect the final decision
-- **Difficulty**: The AI plays optimally, making it challenging but fair
-
-## 📱 Responsive Design
-
-The game is fully responsive and works on:
-- Desktop computers
-- Tablets
-- Mobile phones
-- Various screen sizes and orientations
-
-## 🔧 Project Structure
-
+### React Version Structure
 ```
 src/
-├── Game.js          # Main game component with AI logic
-├── Board.js         # Game board component
-├── Square.js        # Individual square component
-├── index.js         # App entry point
-└── index.css        # Styling and responsive design
+├── components/
+│   ├── Game.js          # Main game component
+│   ├── Game-Simple.js   # Simplified version
+│   ├── Board.js         # Game board component
+│   ├── Square.js        # Individual square component
+│   └── Button.js        # Reusable button component
+├── lib/
+│   ├── game-logic.js    # Game logic and AI
+│   └── utils.js         # Utility functions
+├── App.js               # Root component
+├── index.js             # Entry point
+└── index.css            # Styles
 ```
 
-## 🚀 Deployment
+### Standalone Version
+The `index-standalone.html` file contains:
+- Complete game logic in vanilla JavaScript
+- Responsive CSS with modern design
+- No external dependencies
+- Works offline
 
-This project can be deployed to various platforms:
+## 🎨 Customization
 
-- **Netlify**: Drag and drop the `build` folder
-- **Vercel**: Connect your GitHub repository
-- **GitHub Pages**: Use the `gh-pages` package
-- **Firebase Hosting**: Use Firebase CLI
+### Styling
+- Modify CSS variables in the standalone version
+- Update Tailwind classes in the React version
+- Change colors, fonts, and animations to your preference
 
-## 📈 Future Enhancements
+### Game Logic
+- Adjust AI difficulty in the minimax function
+- Add new game modes
+- Implement different board sizes
+- Add sound effects and animations
 
-Potential improvements for future versions:
-- [ ] Difficulty levels for AI (Easy, Medium, Hard)
-- [ ] Tournament mode
-- [ ] Online multiplayer
-- [ ] Game statistics and scoring
-- [ ] Custom themes and colors
-- [ ] Sound effects and animations
-- [ ] Larger board sizes (4x4, 5x5)
+## 📱 Browser Compatibility
+
+- Chrome/Chromium (recommended)
+- Firefox
+- Safari
+- Edge
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+Feel free to fork this project and submit pull requests for:
+- Bug fixes
+- New features
+- UI improvements
+- Performance optimizations
 
 ## 📄 License
 
-This project is open source and available under the [MIT License](LICENSE).
+This project is open source and available under the MIT License.
 
-## 🎨 Screenshots
+## 🏆 Credits
 
-![Game Mode Selection](screenshots/game-modes.png)  
-*Choose between different game modes*
-
-![Human vs Bot](screenshots/human-vs-bot.png)  
-*Play against an intelligent AI opponent*
-
-![Bot vs Bot](screenshots/bot-vs-bot.png)  
-*Watch AI opponents battle each other*
+Created by Stefan Roets - A modern take on the classic Tic Tac Toe game with advanced AI capabilities.
 
 ---
 
-**Created by Stefan** - A modern take on the classic Tic Tac Toe game with AI opponents and multiple game modes.
+**Enjoy the game! 🎮**
